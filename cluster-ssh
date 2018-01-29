@@ -10,6 +10,7 @@ fi
 for i in $(cat ${CONFIGFILE} | grep -v "^\#"); do
   tmux splitw "ssh ${i}"
   tmux select-layout tiled
+  sleep 1
 done
 tmux set-window-option synchronize-panes on
 

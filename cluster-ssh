@@ -1,0 +1,16 @@
+#!/bin/bash
+
+CONFIGFILE="${HOME}/.cluster-ssh.conf"
+
+if [[ ! -s "${CONFIGFILE}" ]]; then
+  echo -e "\n${CONFIGFILE} is empty.\n\nPlease add servers to connect with SSH.\n"
+  exit 1
+fi
+
+for i in $(cat ${CONFIGFILE} | grep -v "^\#"); do
+  tmux splitw "ssh ${i}"
+  tmux select-layout tiled
+done
+tmux set-window-option synchronize-panes on
+
+exit 0
